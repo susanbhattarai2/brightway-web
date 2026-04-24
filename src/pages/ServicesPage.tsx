@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Compass, Building2, FileCheck, BookOpen, Wallet, Plane, CheckCircle, ArrowRight, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import { useState } from 'react' // Optional: if you want to implement FAQ accordion later
 
 const services = [
   {
@@ -21,8 +22,8 @@ const services = [
       'Shortlisting suitable courses and universities',
       'Finalizing application strategy',
     ],
-    color: 'bg-blue-500',
-    lightColor: 'bg-blue-50',
+    color: 'bg-brand-red-light',
+    lightColor: 'bg-brand-red',
   },
   {
     icon: Building2,
@@ -42,8 +43,8 @@ const services = [
       'Submitting applications',
       'Following up with universities',
     ],
-    color: 'bg-green-500',
-    lightColor: 'bg-green-50',
+    color: 'bg-brand-blue',
+    lightColor: 'bg-brand-blue-light',
   },
   {
     icon: FileCheck,
@@ -63,8 +64,8 @@ const services = [
       'Interview preparation sessions',
       'Visa submission and tracking',
     ],
-    color: 'bg-coral',
-    lightColor: 'bg-orange-50',
+    color: 'bg-brand-red-light',
+    lightColor: 'bg-brand-red',
   },
   {
     icon: BookOpen,
@@ -84,8 +85,8 @@ const services = [
       'Mock tests and feedback',
       'Final preparation before exam',
     ],
-    color: 'bg-purple-500',
-    lightColor: 'bg-purple-50',
+    color: 'bg-brand-blue',
+    lightColor: 'bg-brand-blue-light',
   },
   {
     icon: Wallet,
@@ -105,8 +106,8 @@ const services = [
       'Preparing financial documents',
       'Bank loan processing support',
     ],
-    color: 'bg-yellow-500',
-    lightColor: 'bg-yellow-50',
+    color: 'bg-brand-red-light',
+    lightColor: 'bg-brand-red',
   },
   {
     icon: Plane,
@@ -126,8 +127,8 @@ const services = [
       'Essential checklist guidance',
       'Post-arrival support setup',
     ],
-    color: 'bg-teal-500',
-    lightColor: 'bg-teal-50',
+    color: 'bg-brand-blue',
+    lightColor: 'bg-brand-blue-light',
   },
 ]
 
@@ -150,30 +151,42 @@ const faqs = [
   },
 ]
 
+
+// Helper function to scroll to section
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
 export default function ServicesPage() {
   return (
-    <div className="pt-20">
+    <div className="min-h-screen bg-white">
+
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-28 bg-gradient-to-br from-warm via-white to-white overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-coral/5 to-transparent pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="inline-block text-coral font-semibold text-sm uppercase tracking-wider mb-4">
-              Our Services
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark mb-6">
-              Comprehensive{' '}
-              <span className="text-coral">Support</span> for Your Journey
+      <section>
+        <div className="bg-gradient-to-r from-brand-blue to-blue-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center space-x-2 text-sm mb-4 opacity-90">
+              <span>Services</span>
+              <span>/</span>
+              <span className="font-semibold text-brand-red">Overview</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              Comprehensive Support For Your Journey
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              From career counseling to pre-departure support, we provide end-to-end services to make your study abroad dream a reality.
+            <p className="text-lg sm:text-xl max-w-3xl mb-8 text-blue-100">
+              From career counseling to pre-departure support, we provide end-to-end services.
             </p>
-          </motion.div>
+            <button
+              onClick={() => scrollToSection('consultation-form')}
+              className="bg-brand-red hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 flex items-center shadow-md"
+            >
+              Book Free Consultation
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </button>
+          </div>
         </div>
       </section>
 
@@ -188,16 +201,16 @@ export default function ServicesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ duration: 0.6 }}
-                className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-start ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                }`}
+                className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-start ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
               >
                 {/* Content */}
                 <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <div className={`w-16 h-16 ${service.color} rounded-2xl flex items-center justify-center mb-6`}>
-                    <service.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl font-bold text-dark mb-4">{service.title}</h2>
+                  <span className='flex items-center'>
+                    <div className={`w-16 h-16 ${service.color} rounded-2xl flex items-center justify-center mb-6`}>
+                      <service.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-3xl font-bold text-dark mb-4 ml-4">{service.title}</h2>
+                  </span>
                   <p className="text-lg text-gray-600 mb-8">{service.description}</p>
 
                   {/* Features */}
@@ -214,8 +227,8 @@ export default function ServicesPage() {
                   </div>
 
                   <Link to="/contact">
-                    <Button className="bg-coral hover:bg-coral-dark text-white px-6 py-3 rounded-full font-medium transition-all hover:scale-105 group">
-                      Get Started
+                    <Button className="bg-brand-blue hover:bg-brand-red text-white px-6 py-3 rounded-full font-medium transition-all hover:scale-105 group">
+                      Learn more
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
@@ -224,14 +237,14 @@ export default function ServicesPage() {
                 {/* Process Card */}
                 <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                   <div className={`${service.lightColor} rounded-3xl p-8`}>
-                    <h4 className="font-semibold text-dark mb-6">Our Process</h4>
+                    <h4 className="font-semibold text-white mb-6">Our Process</h4>
                     <div className="space-y-4">
                       {service.process.map((step, idx) => (
                         <div key={idx} className="flex items-start gap-4">
                           <div className={`w-8 h-8 ${service.color} rounded-full flex items-center justify-center flex-shrink-0 text-white font-semibold text-sm`}>
                             {idx + 1}
                           </div>
-                          <p className="text-gray-700 pt-1">{step}</p>
+                          <p className="text-white pt-1">{step}</p>
                         </div>
                       ))}
                     </div>
@@ -280,7 +293,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 lg:py-28 bg-dark-light">
+      <section className="py-20 lg:py-28 bg-brand-blue-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -297,7 +310,7 @@ export default function ServicesPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/contact">
-                <Button className="bg-coral hover:bg-coral-dark text-white px-8 py-6 rounded-full font-semibold text-lg transition-all hover:scale-105">
+                <Button className="bg-brand-red hover:bg-brand-red-light text-white px-8 py-6 rounded-full font-semibold text-lg transition-all hover:scale-105">
                   <Phone className="mr-2 w-5 h-5" />
                   Book Free Consultation
                 </Button>
