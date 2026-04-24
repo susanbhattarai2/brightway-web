@@ -52,7 +52,7 @@ module.exports = {
         brand: {
           blue: '#0033A0',
           'blue-dark': '#002280',
-          'blue-light': '#1E4EC8',
+          'blue-light': '#021e64ff',
           red: '#E31937',
           'red-dark': '#C41230',
           'red-light': '#FF3D5A',
