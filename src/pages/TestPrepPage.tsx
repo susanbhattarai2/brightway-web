@@ -145,6 +145,7 @@ export default function TestPrepPage() {
               </button>
             </div>
           </div>
+        </div>
       </section>
       <div className="bg-gradient-to-r from-brand-blue to-blue-900 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
