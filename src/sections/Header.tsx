@@ -5,6 +5,12 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { href, Link, useLocation } from 'react-router-dom'
 import logo from '../images/2.png'
+import {
+  getSettings
+} from '../api/homepageapi'
+
+const settingsData = await getSettings();
+console.log('final setting data', settingsData);
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -75,6 +81,12 @@ export default function Header() {
     return location.pathname.startsWith(href)
   }
 
+  const getLink = (name: string) => {
+      return settingsData.social_media_link?.find(
+          (item: any) => item.name.toLowerCase() === name.toLowerCase()
+      )?.link || '#';
+  };
+
   return (
     <>
       {/* Top Bar */}
@@ -83,18 +95,53 @@ export default function Header() {
           <div className="flex items-center justify-between h-10">
             {/* Social Icons */}
             <div className="flex items-center gap-3">
-              <a href="#" className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+              <a
+                href={getLink('Facebook')}
+                target="_blank"
+                className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors"
+              >
                 <Facebook className="w-3.5 h-3.5" />
               </a>
-              <a href="#" className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+
+              <a
+                href={getLink('Instagram')}
+                target="_blank"
+                className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors"
+              >
                 <Instagram className="w-3.5 h-3.5" />
               </a>
-              <a href="#" className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+
+              <a
+                href={getLink('Twitter')}
+                target="_blank"
+                className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors"
+              >
                 <Twitter className="w-3.5 h-3.5" />
               </a>
-              <a href="#" className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors">
+
+              <a
+                href={getLink('TikTok')}
+                target="_blank"
+                className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-3.5 h-3.5"
+                >
+                  <path d="M12.75 2c.38 2.72 2.45 4.8 5.17 5.17v2.6a7.74 7.74 0 0 1-3.82-1.02v5.42a5.83 5.83 0 1 1-5.83-5.83c.26 0 .52.02.77.05v2.64a3.2 3.2 0 1 0 2.94 3.19V2h.77z"/>
+                </svg>
+              </a>
+
+              <a
+                href={getLink('YouTube')}
+                target="_blank"
+                className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors"
+              >
                 <Youtube className="w-3.5 h-3.5" />
               </a>
+
             </div>
 
             {/* Quick Links */}
@@ -126,7 +173,7 @@ export default function Header() {
             {/* {logo} */}
             <Link to="/" className="flex items-center group">
               <img
-                src={logo}
+                src={settingsData.site_logo}
                 alt="Brightway International Education"
                 className="h-12 w-auto object-contain"
               />
