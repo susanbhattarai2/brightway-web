@@ -1,9 +1,24 @@
 import { motion } from 'framer-motion'
-import { Clock, Users, Target, CheckCircle, BookOpen, Award, Calendar, Phone } from 'lucide-react'
+import { Clock, Users, Target, CheckCircle, BookOpen, Award, Calendar, Phone, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 
-const tests = [
+interface Test {
+  name: string;
+  fullName: string;
+  description: string;
+  duration: string;
+  students: string;
+  targetScore: string;
+  fee: string;
+  modules: string[];
+  schedule: string[];
+  features: string[];
+  color: string;
+  bgColor: string;
+}
+
+const tests: Test[] = [
   {
     name: 'IELTS',
     fullName: 'International English Language Testing System',
@@ -106,7 +121,14 @@ const tests = [
   },
 ]
 
-const results = [
+interface Result {
+  name: string;
+  test: string;
+  score: string;
+  university: string;
+}
+
+const results: Result[] = [
   { name: 'Priya Sharma', test: 'IELTS', score: 'Band 8.0', university: 'University of Melbourne' },
   { name: 'Rajan Thapa', test: 'PTE', score: '79', university: 'University of Manchester' },
   { name: 'Sunita Gurung', test: 'TOEFL', score: '110', university: 'University of Toronto' },
@@ -123,6 +145,30 @@ export default function TestPrepPage() {
         <div className="min-h-screen bg-white">
 
           {/* Hero Section */}
+          <section>
+            <div className="bg-gradient-to-r from-brand-blue to-blue-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+              <div className="max-w-7xl mx-auto">
+                <div className="flex items-center space-x-2 text-sm mb-4 opacity-90">
+                  <span>Destinations</span>
+                  <span>/</span>
+                  <span className="text-brand-red font-semibold">Australia</span>
+                </div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                  Study in Australia
+                </h1>
+                <p className="text-lg sm:text-xl max-w-3xl mb-8 text-blue-100">
+                  Experience world-class education, vibrant cities, and excellent post-study work opportunities.
+                </p>
+                <button
+                  onClick={() => scrollToSection('consultation-form')}
+                  className="bg-brand-red hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 flex items-center shadow-md"
+                >
+                  Book Free Consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </section>
           <div className="bg-gradient-to-r from-brand-blue to-blue-900 text-white py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <div className="flex items-center space-x-2 text-sm mb-4 opacity-90">
@@ -145,219 +191,198 @@ export default function TestPrepPage() {
               </button>
             </div>
           </div>
-      </section>
-      <div className="bg-gradient-to-r from-brand-blue to-blue-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center space-x-2 text-sm mb-4 opacity-90">
-            <span>Destinations</span>
-            <span>/</span>
-            <span className="text-brand-red font-semibold">Australia</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Study in Australia
-          </h1>
-          <p className="text-lg sm:text-xl max-w-3xl mb-8 text-blue-100">
-            Experience world-class education, vibrant cities, and excellent post-study work opportunities.
-          </p>
-          <button
-            onClick={() => scrollToSection('consultation-form')}
-            className="bg-brand-red hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 flex items-center shadow-md"
-          >
-            Book Free Consultation
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </button>
-        </div>
-      </div>
 
-      <section className="relative py-20 lg:py-28 bg-gradient-to-br from-warm via-white to-white overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-coral/5 to-transparent pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="inline-block text-coral font-semibold text-sm uppercase tracking-wider mb-4">
-              Test Preparation
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark mb-6">
-              Achieve Your{' '}
-              <span className="text-coral">Target Scores</span>
-            </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Expert coaching for IELTS, PTE, TOEFL, and language proficiency tests. Our experienced instructors help you achieve your best possible score.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Tests Grid */}
-      <section className="py-20 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {tests.map((test, index) => (
+          <section className="relative py-20 lg:py-28 bg-gradient-to-br from-warm via-white to-white overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-coral/5 to-transparent pointer-events-none" />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div
-                key={test.name}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow border border-gray-100"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center max-w-3xl mx-auto"
               >
-                {/* Header */}
-                <div className={`bg-gradient-to-r ${test.color} p-6 text-white`}>
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-3xl font-bold">{test.name}</h2>
-                    <BookOpen className="w-8 h-8 opacity-80" />
-                  </div>
-                  <p className="text-white/80 text-sm">{test.fullName}</p>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <p className="text-gray-600 mb-6">{test.description}</p>
-
-                  {/* Quick Stats */}
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className={`${test.bgColor} rounded-xl p-3 text-center`}>
-                      <Clock className="w-5 h-5 mx-auto mb-1 text-gray-500" />
-                      <p className="text-xs text-gray-500">Duration</p>
-                      <p className="font-semibold text-dark text-sm">{test.duration}</p>
-                    </div>
-                    <div className={`${test.bgColor} rounded-xl p-3 text-center`}>
-                      <Users className="w-5 h-5 mx-auto mb-1 text-gray-500" />
-                      <p className="text-xs text-gray-500">Students</p>
-                      <p className="font-semibold text-dark text-sm">{test.students}</p>
-                    </div>
-                    <div className={`${test.bgColor} rounded-xl p-3 text-center`}>
-                      <Target className="w-5 h-5 mx-auto mb-1 text-coral" />
-                      <p className="text-xs text-gray-500">Target</p>
-                      <p className="font-semibold text-coral text-sm">{test.targetScore}</p>
-                    </div>
-                  </div>
-
-                  {/* Modules */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-dark mb-3">Test Modules</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {test.modules.map((module, idx) => (
-                        <span
-                          key={idx}
-                          className="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full"
-                        >
-                          {module}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Features */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-dark mb-3">Course Features</h4>
-                    <ul className="space-y-2">
-                      {test.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
-                          <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Schedule */}
-                  <div className="mb-6">
-
-                  </div>
-
-                  {/* Fee & CTA */}
-                  <div className="flex items-center justify-between pt-4 border-t">
-
-                    <Link to="/contact">
-                      <Button className="bg-brand-blue hover:bg-brand-blue/80 text-white px-6 py-2 rounded-full font-medium transition-all hover:scale-105">
-                        Enroll Now
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                <span className="inline-block text-coral font-semibold text-sm uppercase tracking-wider mb-4">
+                  Test Preparation
+                </span>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark mb-6">
+                  Achieve Your{' '}
+                  <span className="text-coral">Target Scores</span>
+                </h1>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Expert coaching for IELTS, PTE, TOEFL, and language proficiency tests. Our experienced instructors help you achieve your best possible score.
+                </p>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* Results Section */}
-      <section className="py-20 lg:py-28 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <span className="inline-block text-coral font-semibold text-sm uppercase tracking-wider mb-4">
-              Success Stories
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-dark">
-              Our Students' Achievements
-            </h2>
-          </motion.div>
+          {/* Tests Grid */}
+          <section className="py-20 lg:py-28 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-8">
+                {tests.map((test: Test, index: number) => (
+                  <motion.div
+                    key={test.name}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                    className="bg-white rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow border border-gray-100"
+                  >
+                    {/* Header */}
+                    <div className={`bg-gradient-to-r ${test.color} p-6 text-white`}>
+                      <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-3xl font-bold">{test.name}</h2>
+                        <BookOpen className="w-8 h-8 opacity-80" />
+                      </div>
+                      <p className="text-white/80 text-sm">{test.fullName}</p>
+                    </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.map((result, index) => (
+                    {/* Content */}
+                    <div className="p-6">
+                      <p className="text-gray-600 mb-6">{test.description}</p>
+
+                      {/* Quick Stats */}
+                      <div className="grid grid-cols-3 gap-4 mb-6">
+                        <div className={`${test.bgColor} rounded-xl p-3 text-center`}>
+                          <Clock className="w-5 h-5 mx-auto mb-1 text-gray-500" />
+                          <p className="text-xs text-gray-500">Duration</p>
+                          <p className="font-semibold text-dark text-sm">{test.duration}</p>
+                        </div>
+                        <div className={`${test.bgColor} rounded-xl p-3 text-center`}>
+                          <Users className="w-5 h-5 mx-auto mb-1 text-gray-500" />
+                          <p className="text-xs text-gray-500">Students</p>
+                          <p className="font-semibold text-dark text-sm">{test.students}</p>
+                        </div>
+                        <div className={`${test.bgColor} rounded-xl p-3 text-center`}>
+                          <Target className="w-5 h-5 mx-auto mb-1 text-coral" />
+                          <p className="text-xs text-gray-500">Target</p>
+                          <p className="font-semibold text-coral text-sm">{test.targetScore}</p>
+                        </div>
+                      </div>
+
+                      {/* Modules */}
+                      <div className="mb-6">
+                        <h4 className="font-semibold text-dark mb-3">Test Modules</h4>
+                        {/* <div className="flex flex-wrap gap-2">
+                          {test.modules.map((module, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full"
+                            >
+                              {module}
+                            </span>
+                          ))}
+                        </div> */}
+                      </div>
+
+                      {/* Features */}
+                      <div className="mb-6">
+                        <h4 className="font-semibold text-dark mb-3">Course Features</h4>
+                        <ul className="space-y-2">
+                          {test.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                              <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Schedule */}
+                      <div className="mb-6">
+
+                      </div>
+
+                      {/* Fee & CTA */}
+                      <div className="flex items-center justify-between pt-4 border-t">
+
+                        <Link to="/contact">
+                          <Button className="bg-brand-blue hover:bg-brand-blue/80 text-white px-6 py-2 rounded-full font-medium transition-all hover:scale-105">
+                            Enroll Now
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Results Section */}
+          <section className="py-20 lg:py-28 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="bg-white rounded-2xl p-6 shadow-card"
+                transition={{ duration: 0.6 }}
+                className="text-center mb-12"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-coral/10 rounded-full flex items-center justify-center">
-                    <Award className="w-6 h-6 text-coral" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-dark">{result.name}</h4>
-                    <p className="text-sm text-gray-500">{result.university}</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">{result.test}</span>
-                  <span className="text-lg font-bold text-coral">{result.score}</span>
+                <span className="inline-block text-coral font-semibold text-sm uppercase tracking-wider mb-4">
+                  Success Stories
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-bold text-dark">
+                  Our Students' Achievements
+                </h2>
+              </motion.div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {results.map((result: Result, index: number) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    className="bg-white rounded-2xl p-6 shadow-card"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-coral/10 rounded-full flex items-center justify-center">
+                        <Award className="w-6 h-6 text-coral" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-dark">{result.name}</h4>
+                        <p className="text-sm text-gray-500">{result.university}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">{result.test}</span>
+                      <span className="text-lg font-bold text-coral">{result.score}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="py-20 lg:py-28 bg-coral">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center"
+              >
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+                  Start Your Test Preparation Today
+                </h2>
+                <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+                  Join thousands of successful students who achieved their target scores with our expert coaching.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <Link to="/contact">
+                    <Button className="bg-white text-coral hover:bg-white/90 px-8 py-6 rounded-full font-semibold text-lg transition-all hover:scale-105">
+                      <Phone className="mr-2 w-5 h-5" />
+                      Book a Free Demo Class
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 lg:py-28 bg-coral">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-              Start Your Test Preparation Today
-            </h2>
-            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of successful students who achieved their target scores with our expert coaching.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/contact">
-                <Button className="bg-white text-coral hover:bg-white/90 px-8 py-6 rounded-full font-semibold text-lg transition-all hover:scale-105">
-                  <Phone className="mr-2 w-5 h-5" />
-                  Book a Free Demo Class
-                </Button>
-              </Link>
             </div>
-          </motion.div>
+          </section>
         </div>
       </section>
     </div>

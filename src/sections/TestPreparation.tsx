@@ -3,7 +3,19 @@ import { Clock, Users, Target, CheckCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 
-const tests = [
+interface Test {
+  name: string;
+  fullName: string;
+  description: string;
+  duration: string;
+  students: string;
+  score: string;
+  features: string[];
+  color: string;
+  bgColor: string;
+}
+
+const tests: Test[] = [
   {
     name: 'IELTS',
     fullName: 'International English Language Testing System',
@@ -115,7 +127,7 @@ export default function TestPreparation() {
           viewport={{ once: true, margin: '-100px' }}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {tests.map((test) => (
+          {tests.map((test: Test) => (
             <motion.div
               key={test.name}
               variants={cardVariants}
@@ -143,21 +155,21 @@ export default function TestPreparation() {
                     <Users className="w-4 h-4" />
                     <span>{test.students}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-brand-blue font-semibold">
+                  <div className="flex items-center gap-1 text-gray-600 ">
                     <Target className="w-4 h-4" />
                     <span>{test.score}</span>
                   </div>
                 </div>
 
                 {/* Features */}
-                <div className="space-y-2">
+                {/* <div className="space-y-2">
                   {test.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
                       <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                       <span>{feature}</span>
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
             </motion.div>
           ))}
