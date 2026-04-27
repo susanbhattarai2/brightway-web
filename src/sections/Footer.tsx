@@ -1,81 +1,126 @@
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from 'lucide-react'
+import { MapPin, Phone, Mail, Building2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-const quickLinks = [
-  { name: 'About Us', href: '/about' },
-  { name: 'Study Destinations', href: '/destinations' },
-  { name: 'Services', href: '/services' },
-  { name: 'Test Preparation', href: '/test-preparation' },
-  { name: 'Contact', href: '/contact' },
-]
+// --- Data Constants ---
 
-const services = [
-  'Career Counseling',
-  'University Admission',
-  'Visa Assistance',
-  'Test Preparation',
-  'Financial Guidance',
-  'Pre-Departure Support',
+const footerLinks = {
+  quickLinks: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Destinations', href: '/destinations' },
+    { name: 'Programs & University', href: '/programs' },
+    { name: 'Test Preparation', href: '/test-prep' },
+    { name: 'Blogs', href: '/blog' },
+    { name: 'Scholarships', href: '/scholarships' },
+    { name: 'Events', href: '/events' },
+  ],
+  services: [
+    { name: 'Career Counseling', href: '/services#career' },
+    { name: 'Financial Advice', href: '/services#financial' },
+    { name: 'Pre-Departure Orientation', href: '/services#pre-departure' },
+    { name: 'Test Preparation', href: '/test-prep' },
+    { name: 'University Admissions', href: '/services#admission' },
+    { name: 'Visa Facilitation', href: '/services#visa' },
+  ],
+  destinations: [
+    { name: 'Australia', href: '/destinations/australia' },
+    { name: 'UK', href: '/destinations/uk' },
+    { name: 'USA', href: '/destinations/usa' },
+    { name: 'Canada', href: '/destinations/canada' },
+    { name: 'Europe', href: '/destinations/europe' },
+    { name: 'New Zealand', href: '/destinations/new-zealand' },
+    { name: 'Dubai', href: '/destinations/dubai' },
+    { name: 'Thailand', href: '/destinations/thailand' },
+    { name: 'India', href: '/destinations/india' },
+  ],
+  testPrep: [
+    { name: 'IELTS', href: '/test-prep/ielts' },
+    { name: 'PTE', href: '/test-prep/pte' },
+    { name: 'TOEFL', href: '/test-prep/toefl' },
+  ],
+  company: [
+    { name: 'Contact Us', href: '/contact' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms & Conditions', href: '/terms' },
+  ],
+}
+
+const locations = [
+  {
+    title: 'Head Office',
+    subtitle: 'Bagbazar',
+    phone: ['01-4215449', '01-4248779'],
+    email: 'info@brightway.com.np',
+    address: 'Simko Plaza, Level-1, Bagbazar-28, Kathmandu, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Butwal',
+    phone: ['071-597296', '9849636051'],
+    email: 'butwal@brightway.com.np',
+    address: 'Milanchowk, Butwal, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Koteshwor',
+    phone: ['01-5923194', '9763405512'],
+    email: 'koteshwor@brightway.com.np',
+    address: 'Koteshwor Chowk, Kathmandu, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Banepa',
+    phone: ['01-1665831', '9767229368'],
+    email: 'banepa@brightway.com.np',
+    address: 'Chardobato Chowk, Banepa, Kavre, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Biratnagar',
+    phone: ['9827302716', '9842028198'],
+    email: 'biratnagar@brightway.com.np',
+    address: 'Mahendra Chowk, Biratnagar, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Surkhet',
+    phone: ['083-590829', '9858032729'],
+    email: 'surkhet@brightway.com.np',
+    address: 'Birendranagar-8,Campus Road, Surkhet, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Murgiya',
+    phone: ['071-592003', '9860012097'],
+    email: 'murgiya@brightway.com.np',
+    address: 'Sainamaina -8, Murgiya, Rupandehi, Nepal',
+  },
+  {
+    title: 'Branch',
+    subtitle: 'Kirtipur',
+    phone: ['9845166652'],
+    email: 'kirtipur@brightway.com.np',
+    address: 'Pagadobato, Kirtipur, Kathmandu, Nepal',
+  }
+
+
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Company Info */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full border-2 border-brand-blue flex items-center justify-center">
-                <span className="text-brand-blue font-bold text-sm">BIE</span>
-              </div>
-              <div>
-                <span className="text-lg font-black text-white leading-tight block">BRIGHTWAY</span>
-                <span className="text-xs text-brand-red font-medium tracking-wider block">INTERNATIONAL EDUCATION</span>
-              </div>
-            </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Your trusted partner for studying abroad. 20+ years of excellence in education consultancy helping Nepali students achieve their dreams.
-            </p>
-            <div className="flex items-center gap-3">
-              <a
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand-blue transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand-blue transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand-blue transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-brand-blue transition-colors"
-              >
-                <Youtube className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
+    <footer className="bg-gradient-to-r from-brand-blue to-blue-900 text-white pt-16 pb-8 border-t border-blue-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+        {/* Top Section: Links Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
+            <h4 className="text-lg font-bold mb-4 uppercase tracking-wide text-blue-200">Quick Links</h4>
+            <ul className="space-y-2">
+              {footerLinks.quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-gray-400 hover:text-brand-blue transition-colors text-sm"
-                  >
+                  <Link to={link.href} className="text-sm text-blue-100 hover:text-white hover:underline transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -85,65 +130,137 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Our Services</h4>
-            <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service}>
-                  <span className="text-gray-400 text-sm">{service}</span>
+            <h4 className="text-lg font-bold mb-4 uppercase tracking-wide text-blue-200">Services</h4>
+            <ul className="space-y-2">
+              {footerLinks.services.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-sm text-blue-100 hover:text-white hover:underline transition-colors">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Destinations */}
           <div>
-            <h4 className="text-lg font-semibold mb-6">Contact Us</h4>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" />
-                <p className="text-gray-400 text-sm">
-                  Simko Plaza, Level -1<br />
-                  Bagbazar-28, Kathmandu<br />
-                  Nepal
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-brand-red flex-shrink-0" />
-                <a href="mailto:info@brightway.com.np" className="text-gray-400 hover:text-brand-blue transition-colors text-sm">
-                  info@brightway.com.np
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-brand-red flex-shrink-0" />
-                <a href="tel:+977-1-4XXXXXX" className="text-gray-400 hover:text-brand-blue transition-colors text-sm">
-                  +977-1-4XXXXXX
-                </a>
-              </div>
-            </div>
-            <div className="mt-6">
-              <p className="text-gray-400 text-sm">
-                <span className="text-white font-medium">Working Hours:</span><br />
-                Sun - Fri: 6:00 AM - 6:00 PM
-              </p>
-            </div>
+            <h4 className="text-lg font-bold mb-4 uppercase tracking-wide text-blue-200">Destinations</h4>
+            <ul className="space-y-2">
+              {footerLinks.destinations.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-sm text-blue-100 hover:text-white hover:underline transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Test Prep */}
+          <div>
+            <h4 className="text-lg font-bold mb-4 uppercase tracking-wide text-blue-200">Test Prep</h4>
+            <ul className="space-y-2">
+              {footerLinks.testPrep.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-sm text-blue-100 hover:text-white hover:underline transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-lg font-bold mb-4 uppercase tracking-wide text-blue-200">Company</h4>
+            <ul className="space-y-2">
+              {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-sm text-blue-100 hover:text-white hover:underline transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-400 text-sm text-center sm:text-left">
-              © 2024 Brightway International Education. All Rights Reserved.
-            </p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-gray-400 hover:text-brand-blue transition-colors text-sm">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-brand-blue transition-colors text-sm">
-                Terms of Service
-              </a>
+        {/* Middle Section: Locations */}
+        <div className="bg-blue-800/50 rounded-xl p-6 mb-12 backdrop-blur-sm border border-blue-700/50">
+          <h3 className="text-center text-xl font-bold mb-8 text-white uppercase tracking-wider">Our Locations</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {locations.map((loc, idx) => (
+              <div key={idx} className="space-y-4">
+
+                {/* 1. Header with Building Icon */}
+                <div className="flex items-center gap-3 pb-2 border-b border-blue-700/50">
+                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-blue flex-shrink-0 shadow-lg">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-xs text-white font-bold uppercase tracking-wider block">{loc.title}</span>
+                    <span className="font-bold text-white text-lg leading-tight">{loc.subtitle}</span>
+                  </div>
+                </div>
+
+                {/* Contact Details List */}
+                <div className="space-y-3 text-sm text-blue-100">
+
+                  {/* 2. Phone with Phone Icon */}
+                  <div className="flex items-start gap-3 group">
+                    <Phone className="w-4 h-4 mt-1 text-white flex-shrink-0 group-hover:text-white transition-colors" />
+                    <div className="flex flex-col">
+                      {loc.phone.map((p, i) => (
+                        <span key={i} className="hover:text-white transition-colors cursor-default">{p}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 3. Email with Envelope (Mail) Icon */}
+                  <div className="flex items-start gap-3 group">
+                    <Mail className="w-4 h-4 mt-1 text-white flex-shrink-0 group-hover:text-white transition-colors" />
+                    <a href={`mailto:${loc.email}`} className="hover:text-white transition-colors break-all">
+                      {loc.email}
+                    </a>
+                  </div>
+
+                  {/* 4. Address with Pin (MapPin) Icon */}
+                  <div className="flex items-start gap-3 group">
+                    <MapPin className="w-4 h-4 mt-1 text-white flex-shrink-0 group-hover:text-white transition-colors" />
+                    <span className="leading-relaxed">{loc.address}</span>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Section: Accreditation & Copyright */}
+        <div className="border-t border-blue-800 pt-8">
+
+          {/* Accreditation Logos Placeholder */}
+          <div className="flex flex-wrap justify-center gap-6 mb-8 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+            <div className="h-10 w-24 bg-white/10 rounded flex items-center justify-center text-xs">LOGO 1</div>
+            <div className="h-10 w-24 bg-white/10 rounded flex items-center justify-center text-xs">LOGO 2</div>
+            <div className="h-10 w-24 bg-white/10 rounded flex items-center justify-center text-xs">LOGO 3</div>
+            <div className="h-10 w-24 bg-white/10 rounded flex items-center justify-center text-xs">LOGO 4</div>
+            <div className="h-10 w-24 bg-white/10 rounded flex items-center justify-center text-xs">LOGO 5</div>
+          </div>
+
+          <div className="text-center text-xs text-blue-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+            Our institution offers worldwide accepted validity certified by IRIN, NAEER, TOEFL, PTE and British Council – ensuring ethical, up-to-date counseling standards. These accreditations validate our commitment to excellence, providing students with internationally accepted qualifications and enhanced career prospects.
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-blue-300">
+            <div className="flex items-center gap-2">
+
+              <span>©Brightway International Education. All Rights Reserved.</span>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <span>Designed and Developed by:</span>
+              <span className="font-bold text-white">Agaman Creations</span>
             </div>
           </div>
         </div>
